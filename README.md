@@ -46,7 +46,7 @@ To run this project locally on your machine, follow these steps:
    - Ensure you have Java, Maven, and MySQL installed
 
 2. **Clone the Repository:**
-   - git clone https://github.com/sophytao912/Full-stack-web-application.git
+   - git clone https://github.com/DatCD85/test-app.git
 
 3. ** Build the database:**
    - Open a terminal window and make sure MySQL is in your system's path
