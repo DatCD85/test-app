@@ -7,4 +7,4 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql:3306/fullstackweb?serverTimezone=UTC
     username: 'root'
-    password: 'mysqlroot123root'
+    password: 'Qwerty@12345'
