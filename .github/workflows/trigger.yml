@@ -14,7 +14,7 @@ jobs:
          curl -X POST http://el-github-listener-chuanhdat-dev.apps.rm2.thpm.p1.openshiftapps.com \
          -H "Content-Type: application/json" \
          -d '{
-             "template_name": "maven-app-template",
+             "template_name": "maven-app-template-test-trigger",
              "image": "docker.io/chudat753/maven-app:latest",
              "commit": "${{ github.event.workflow_run.head_commit.id }}",
              "branch": "${{ github.event.workflow_run.head_branch }}"
