@@ -55,7 +55,7 @@
         let encodedKeyword = encodeURIComponent(keyword.replace(/!/g, "!!").replace(/%/g, "!%").replace(/_/g, "!_"));
 
 
-        fetch(`http://localhost:8082/reports/search-manufacturer-model?keyword=${encodedKeyword}`, {
+        fetch(`http://localhost:10000/reports/search-manufacturer-model?keyword=${encodedKeyword}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

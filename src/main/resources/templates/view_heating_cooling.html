@@ -69,7 +69,7 @@
 </table>
 
 <script type="text/javascript">
-    fetch("http://localhost:8082/reports/view-heating-cooling/airconditioner", {
+    fetch("http://localhost:10000/reports/view-heating-cooling/airconditioner", {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -93,7 +93,7 @@
             placeholder.innerHTML = out;
         });
 
-    fetch("http://localhost:8082/reports/view-heating-cooling/heater", {
+    fetch("http://localhost:10000/reports/view-heating-cooling/heater", {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -117,7 +117,7 @@
             placeholder.innerHTML = out;
         });
 
-    fetch("http://localhost:8082/reports/view-heating-cooling/heatpump", {
+    fetch("http://localhost:10000/reports/view-heating-cooling/heatpump", {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

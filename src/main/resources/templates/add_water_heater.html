@@ -120,7 +120,7 @@
         };
         console.log(data1);
 
-        fetch("http://localhost:8082/appliance/add-waterheater", {
+        fetch("http://localhost:10000/appliance/add-waterheater", {
             method: "POST",
             credentials:'include',
             headers: {"Content-Type": "application/json"},
@@ -141,7 +141,7 @@
 
 
     //get manufacturer dropdown menu
-    fetch('http://localhost:8082/appliance/manu-list').then(response => response.json()
+    fetch('http://localhost:10000/appliance/manu-list').then(response => response.json()
     ).then(data => {
         const select = document.getElementById('manufacturer');
         data.forEach(option => {

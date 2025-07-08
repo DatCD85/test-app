@@ -65,7 +65,7 @@
     const email = getCookieValue("cookieEmail");
 
     // check whether is off-the-grid. If not off-the-grid, show skip button.
-    fetch(`http://localhost:8082/power-generator/check-if-offthegrid?email=${email}`, {
+    fetch(`http://localhost:10000/power-generator/check-if-offthegrid?email=${email}`, {
         method: "GET"
     })
         .then(response => response.json())
@@ -117,7 +117,7 @@
             "generationType":type
         };
 
-        fetch('http://localhost:8082/power-generator/add', {
+        fetch('http://localhost:10000/power-generator/add', {
             method: 'POST',
             //credentials:'include',
             headers: {'Content-Type': 'application/json'},
