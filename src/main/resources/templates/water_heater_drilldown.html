@@ -41,7 +41,7 @@
 <script type="text/javascript">
 
     var id = getQueryString("id");
-    var url = "http://localhost:10000/reports/view-state-drilldown/"+id;
+    var url = "/reports/view-state-drilldown/"+id;
     document.getElementById("title").append(id+" Water Heater Drilldown Report");
     fetch(url, {
         method: 'GET',

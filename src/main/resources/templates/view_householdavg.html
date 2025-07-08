@@ -143,7 +143,7 @@
             return;
         }
 
-        fetch(`http://localhost:10000/reports/household-by-radius?postalCode=${postalCode}&radius=${radius}`, {
+        fetch(`/reports/household-by-radius?postalCode=${postalCode}&radius=${radius}`, {
             method: 'GET',
             // headers: {
             //     'Accept': 'application/json',

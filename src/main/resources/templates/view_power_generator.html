@@ -63,7 +63,7 @@
     const email = getCookieValue("cookieEmail");
 
 
-    fetch(`http://localhost:10000/power-generator/view?email=${email}`, {
+    fetch(`/power-generator/view?email=${email}`, {
         method: 'GET',
         //headers: {"Accept": "application/json"},
         mode:'cors'
@@ -91,7 +91,7 @@
         var xhr = new XMLHttpRequest();
 
         // Set the URL of the server endpoint
-        var url = "http://localhost:10000/power-generator/delete";
+        var url = "/power-generator/delete";
 
         // Set the request method to POST, and set the Content-Type header
         xhr.open("POST", url);
@@ -122,7 +122,7 @@
                 var xhr = new XMLHttpRequest();
 
                 // Set the URL of the server endpoint
-                var url = "http://localhost:10000/power-generator/can-finish-pg";
+                var url = "/power-generator/can-finish-pg";
 
                 // Set the request method to POST, and set the Content-Type header
                 xhr.open("POST", url);
