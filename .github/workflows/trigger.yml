@@ -15,7 +15,7 @@ jobs:
          -H "Content-Type: application/json" \
          -d '{
              "template_name": "maven-app-template",
-             "image": "docker.io/chudat753/maven-app:latest"
+             "image": "docker.io/chudat753/maven-app:latest",
              "commit": "${{ github.event.workflow_run.head_commit.id }}",
              "branch": "${{ github.event.workflow_run.head_branch }}"
          }'
