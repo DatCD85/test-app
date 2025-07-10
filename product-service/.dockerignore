@@ -1,0 +1,2 @@
+target/*
+!target/product-service-*.jar
