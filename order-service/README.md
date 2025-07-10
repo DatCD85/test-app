@@ -11,7 +11,7 @@ Currently, the features of this microservice are:
 - Fetch list of all orders
 - Get list of orders for a particular customer
 
-## Local Mode
+## Local Mode (for testing)
 
 Run directly from your IDE or from CLI using following command:
 
