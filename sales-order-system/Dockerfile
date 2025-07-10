@@ -10,7 +10,7 @@ RUN sed -i 's/^Listen 80/Listen 8085/' /usr/local/apache2/conf/httpd.conf
 RUN chmod -R 777 /usr/local/apache2/logs
 COPY --from=build /app/build /usr/local/apache2/htdocs/
 EXPOSE 8085
-
+USER www-data
 
 
 
