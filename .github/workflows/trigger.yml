@@ -1,9 +1,8 @@
-name: trigger CD
+name: trigger CI
+
 on:
-  workflow_run:
-    workflows: ["CI/CD for All Microservices"]
-    types:
-      - completed
+  push:
+    branches: [main]
 
 jobs:
   trigger-openshift:
@@ -11,11 +10,13 @@ jobs:
     steps:
       - name: Send webhook to Openshift
         run: |
-         curl -X POST http://el-github-listener-chuanhdat-dev.apps.rm2.thpm.p1.openshiftapps.com \
+         curl -X POST http://el-github-ci-listener-chuanhdat-dev.apps.rm2.thpm.p1.openshiftapps.com \
          -H "Content-Type: application/json" \
          -d '{
-             "template_name": "sales-order-system-template",
-             "image": "docker.io/chudat753/maven-app:latest",
-             "commit": "${{ github.event.workflow_run.head_commit.id }}",
-             "branch": "${{ github.event.workflow_run.head_branch }}"
+             "template_name": "multi-service-ci-template",
+             "repo-url": "https://github.com/chudat753/test-app.git",
+             "revision": "main",
+             "commit": "${{ github.sha }}",
+             "branch": "${{ github.ref_name }}",
+             "services": "sales-order-system user-service customer-service order-service product-service"
          }'
