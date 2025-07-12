@@ -1,4 +1,4 @@
-# Sales Order System 2.0 (testing)
+# Sales Order System 2.0 (testing_ci)
 
 __Sales Order System 2.0__ is a 2020 epic software application development project produced by Colin But. It is a direct sequel to [Sales Order System](http://github.com/colinbut/sales-order-system) (2015).
 
