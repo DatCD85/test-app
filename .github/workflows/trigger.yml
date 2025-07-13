@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Send webhook to Openshift
         run: |
-          curl -X POST http://el-github-ci-listener-chuanhdat-dev.apps.rm2.thpm.p1.openshiftapps.com \
+          curl -X POST http://el-multi-service-ci-listener-chuanhdat-dev.apps.rm2.thpm.p1.openshiftapps.com \
             -H "Content-Type: application/json" \
             -d '{
               "template_name": "multi-service-ci-template",
