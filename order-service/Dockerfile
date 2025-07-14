@@ -1,4 +1,4 @@
-FROM gradle:6.2.2-jdk8 as build
+FROM docker.io/gradle:6.2.2-jdk8 as build
 WORKDIR /app
 COPY . .
 RUN gradle build --no-daemon -x test

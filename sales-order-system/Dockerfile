@@ -1,4 +1,4 @@
-FROM node:16-alpine AS build
+FROM docker.io/node:16-alpine AS build
 WORKDIR /app
 COPY . .
 RUN npm install
