@@ -1,4 +1,4 @@
-FROM maven:3.9.3-eclipse-temurin-8-alpine as build
+FROM docker.io/maven:3.9.3-eclipse-temurin-8-alpine as build
 WORKDIR /app
 COPY . .
 RUN mvn package
