@@ -14,7 +14,7 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{
               "template_name": "multi-service-ci-template",
-              "repo-url": "https://github.com/chudat753/test-app.git",
+              "repo-url": "https://github.com/DatCD85/test-app.git",
               "revision": "main",
               "commit": "${{ github.sha }}",
               "branch": "${{ github.ref_name }}",
