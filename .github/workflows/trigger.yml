@@ -15,8 +15,7 @@ jobs:
             -d '{
               "template_name": "multi-service-ci-template",
               "repo-url": "https://github.com/DatCD85/test-app.git",
-              "revision": "main",
-              "commit": "${{ github.sha }}",
+              "revision": "${{ github.sha }}",
               "branch": "${{ github.ref_name }}",
               "services": ["sales-order-system", "user-service", "customer-service", "order-service", "product-service"],
               "cd-trigger-url": "http://el-github-listener-chuanhdat-dev.apps.rm2.thpm.p1.openshiftapps.com"
