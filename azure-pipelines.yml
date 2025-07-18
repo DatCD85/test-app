@@ -44,7 +44,7 @@ jobs:
     inputs:
       command: build
       repository: docker.io/$(dockerUsername)/$(imageName)
-      dockerfile: $(folder)/Dockerfile
+      dockerfile: $(folder)/dockerfile
       tags: |
         $(Build.BuildId)
 
