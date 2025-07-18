@@ -16,7 +16,7 @@ jobs:
   strategy:
     matrix:
       sales-order-system:
-        folder: '/sales-order-system'
+        folder: 'sales-order-system'
         imageName: 'sales-order-system'
       user-service:
         folder: 'user-service'
@@ -44,7 +44,7 @@ jobs:
     inputs:
       command: build
       repository: docker.io/$(dockerUsername)/$(imageName)
-      dockerfile: $(folder)/dockerfile
+      dockerfile: $(folder)/Dockerfile
       tags: |
         $(Build.BuildId)
 
