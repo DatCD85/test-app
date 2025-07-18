@@ -4,7 +4,7 @@ trigger:
       - main
 
 variables:
-  dockerRegistryServiceConnection: 'docker-hub-connection'
+  dockerRegistryServiceConnection: 'dockerhub'
   dockerUsername: 'chudat753'
 
 pool:
