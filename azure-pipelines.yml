@@ -1,29 +1,56 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- main
-
-resources:
-- repo: self
+  branches:
+    include:
+      - main
 
 variables:
-  tag: '$(Build.BuildId)'
+  dockerRegistryServiceConnection: 'docker-hub-connection'
+  dockerUsername: 'chudat753'
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/*/Dockerfile'
-        tags: |
-          $(tag)
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: BuildAndPush
+  strategy:
+    matrix:
+      sales-order-system:
+        folder: '/sales-order-system'
+        imageName: 'sales-order-system'
+      user-service:
+        folder: 'user-service'
+        imageName: 'user-service'
+      customer-service:
+        folder: 'customer-service'
+        imageName: 'customer-service'
+      order-service:
+        folder: 'order-service'
+        imageName: 'order-service'
+      product-service:
+        folder: 'product-service'
+        imageName: 'product-service'
+  steps:
+  - checkout: self
+
+  - task: Docker@2
+    displayName: Docker Login
+    inputs:
+      command: login
+      containerRegistry: $(dockerRegistryServiceConnection)
+
+  - task: Docker@2
+    displayName: Build Docker Image
+    inputs:
+      command: build
+      repository: docker.io/$(dockerUsername)/$(imageName)
+      dockerfile: $(folder)/Dockerfile
+      tags: |
+        $(Build.BuildId)
+
+  - task: Docker@2
+    displayName: Push Docker Image
+    inputs:
+      command: push
+      repository: docker.io/$(dockerUsername)/$(imageName)
+      tags: |
+        $(Build.BuildId)
