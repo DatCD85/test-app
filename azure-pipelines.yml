@@ -8,6 +8,7 @@ variables:
   dockerUsername: 'chudat753'
 
 pool:
+  name: 'test-pool'
   vmImage: 'ubuntu-VirtualBox'
 
 jobs:
