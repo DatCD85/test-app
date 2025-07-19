@@ -6,52 +6,96 @@ trigger:
 variables:
   dockerRegistryServiceConnection: 'dockerhub'
   dockerUsername: 'chudat753'
+  azureSubscription: 'Azure-app'
+  resourceGroup: 'maven-app'  
 
 pool:
   name: 'test-pool'
   vmImage: 'ubuntu-VirtualBox'
 
-jobs:
-- job: BuildAndPush
-  strategy:
-    matrix:
-      sales-order-system:
-        folder: 'sales-order-system'
-        imageName: 'sales-order-system'
-      user-service:
-        folder: 'user-service'
-        imageName: 'user-service'
-      customer-service:
-        folder: 'customer-service'
-        imageName: 'customer-service'
-      order-service:
-        folder: 'order-service'
-        imageName: 'order-service'
-      product-service:
-        folder: 'product-service'
-        imageName: 'product-service'
-  steps:
-  - checkout: self
+stages:
+# ------------------ CI: Build & Push Docker Images ------------------
+- stage: BuildAndPush
+  displayName: 'Build and Push Docker Images'
+  jobs:
+    - job: BuildAndPush
+      displayName: 'Build & Push All Microservices'
+      strategy:
+        matrix:
+          sales-order-system:
+            folder: 'sales-order-system'
+            imageName: 'sales-order-system'
+          user-service:
+            folder: 'user-service'
+            imageName: 'user-service'
+          customer-service:
+            folder: 'customer-service'
+            imageName: 'customer-service'
+          order-service:
+            folder: 'order-service'
+            imageName: 'order-service'
+          product-service:
+            folder: 'product-service'
+            imageName: 'product-service'
+      steps:
+        - checkout: self
 
-  - task: Docker@2
-    displayName: Docker Login
-    inputs:
-      command: login
-      containerRegistry: $(dockerRegistryServiceConnection)
+        - task: Docker@2
+          displayName: 'Login to Docker Hub'
+          inputs:
+            command: login
+            containerRegistry: $(dockerRegistryServiceConnection)
 
-  - task: Docker@2
-    displayName: Build Docker Image
-    inputs:
-      command: build
-      repository: docker.io/$(dockerUsername)/$(imageName)
-      dockerfile: $(folder)/Dockerfile
-      tags: |
-        $(Build.BuildId)
+        - task: Docker@2
+          displayName: 'Build Docker Image - $(imageName)'
+          inputs:
+            command: build
+            dockerfile: $(folder)/Dockerfile
+            repository: docker.io/$(dockerUsername)/$(imageName)
+            tags: |
+              $(Build.BuildId)
 
-  - task: Docker@2
-    displayName: Push Docker Image
-    inputs:
-      command: push
-      repository: docker.io/$(dockerUsername)/$(imageName)
-      tags: |
-        $(Build.BuildId)
+        - task: Docker@2
+          displayName: 'Push Docker Image - $(imageName)'
+          inputs:
+            command: push
+            repository: docker.io/$(dockerUsername)/$(imageName)
+            tags: |
+              $(Build.BuildId)
+
+# ------------------ CD: Deploy to Azure Container Apps ------------------
+- stage: Deploy
+  displayName: 'Deploy to Azure Container Apps'
+  dependsOn: BuildAndPush
+  jobs:
+    - job: DeployToACA
+      displayName: 'Deploy Microservices to ACA'
+      strategy:
+        matrix:
+          sales-order-system:
+            imageName: 'sales-order-system'
+          user-service:
+            imageName: 'user-service'
+          customer-service:
+            imageName: 'customer-service'
+          order-service:
+            imageName: 'order-service'
+          product-service:
+            imageName: 'product-service'
+      steps:
+        - task: AzureCLI@2
+          displayName: 'Deploy $(imageName) to Azure Container Apps'
+          inputs:
+            azureSubscription: $(azureSubscription)
+            scriptType: bash
+            scriptLocation: inlineScript
+            inlineScript: |
+              az config set extension.use_dynamic_install=yes_without_prompt
+
+              echo "Deploying docker.io/$(dockerUsername)/$(imageName):$(Build.BuildId) to Azure Container App..."
+
+              az containerapp update \
+                --name $(imageName) \
+                --resource-group $(resourceGroup) \
+                --image docker.io/$(dockerUsername)/$(imageName):$(Build.BuildId) \
+                --container-name $(imageName)
