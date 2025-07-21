@@ -102,6 +102,6 @@ stages:
               az containerapp create \
                 --name $(imageName) \
                 --resource-group $(resourceGroup) \
-                --image docker.io/$(dockerUsername)/$(imageName):$(Build.BuildId) \
+                --image docker.io/$(dockerUsername)/$(imageName):latest \
                 --container-name $(imageName) \
                 --environment maven-env
