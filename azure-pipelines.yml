@@ -94,7 +94,7 @@ stages:
 
               echo "Deploying docker.io/$(dockerUsername)/$(imageName):$(Build.BuildId) to Azure Container App..."
 
-              az containerapp update \
+              az containerapp create \
                 --name $(imageName) \
                 --resource-group $(resourceGroup) \
                 --image docker.io/$(dockerUsername)/$(imageName):$(Build.BuildId) \
