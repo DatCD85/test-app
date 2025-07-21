@@ -92,10 +92,16 @@ stages:
             inlineScript: |
               az config set extension.use_dynamic_install=yes_without_prompt
 
+              az containerapp env create \
+                --name maven-env \
+                --resource-group maven-app \
+                --location eastasia
+              
               echo "Deploying docker.io/$(dockerUsername)/$(imageName):$(Build.BuildId) to Azure Container App..."
 
               az containerapp create \
                 --name $(imageName) \
                 --resource-group $(resourceGroup) \
                 --image docker.io/$(dockerUsername)/$(imageName):$(Build.BuildId) \
-                --container-name $(imageName)
+                --container-name $(imageName) \
+                --environment maven-env
