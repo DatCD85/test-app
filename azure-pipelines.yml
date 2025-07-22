@@ -105,3 +105,5 @@ stages:
                 --image docker.io/$(dockerUsername)/$(imageName):latest \
                 --container-name $(imageName) \
                 --environment maven-env
+
+                
